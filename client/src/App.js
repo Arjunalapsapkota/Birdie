@@ -16,7 +16,7 @@ import Home from "./components/Home";
 class App extends Component {
   render() {
     return (
-      <Home />
+      <p>hey just to prove that I am working</p>
       // <Router>
       //   <Switch>
       //     <Route exact path="/" component={Home} />
