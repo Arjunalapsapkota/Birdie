@@ -8,6 +8,13 @@ const PORT = process.env.PORT || 3090;
 const app = express();
 const cookieSession = require("cookie-session");
 var cors = require("cors");
+app.use(cors());
+app.use(
+  cookieSession({
+    maxAge: 24 * 60 * 60 * 1000,
+    keys: [process.env.COOKIEKEY]
+  })
+);
 // Define middleware here
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -15,13 +22,7 @@ app.use(bodyParser.json());
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
-//app.use(cors);
-app.use(
-  cookieSession({
-    maxAge: 24 * 60 * 60 * 1000,
-    keys: [process.env.COOKIEKEY]
-  })
-);
+
 // Define API routes here
 app.use("/api", apiroutes);
 // Send every other request to the React app

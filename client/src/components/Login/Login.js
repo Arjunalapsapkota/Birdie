@@ -20,36 +20,14 @@ class Login extends Component {
     event.preventDefault();
     console.log(this.state);
     console.log(JSON.stringify(this.state));
-    //   let res = await fetch({
-    //     url: "httpsss://localhost:3090/api/login",
-    //     method: "post",
-    //     data: JSON.stringify(this.State)
-    //   });
-    // };
-    //   fetch("http://localhost:3090/api/login", {
-    //     method: "POST", // or 'PUT'
-    //     body: JSON.stringify(this.state), // data can be `string` or {object}!
-    //     headers: {
-    //       contentType: "application/x-www-form-urlencoded"
-    //     }
-    //   })
-    // .then(res => res.json())
-    // .then(response => console.log("Success:", JSON.stringify(response)))
-    // .catch(error => console.error("Error:", error));
-    // };
-    let res = await fetch("http://localhost:3090/api/login", {
-      method: "POST", // *GET, POST, PUT, DELETE, etc.
-      mode: "no-cors", // no-cors, cors, *same-origin
-      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: "include", // include, *same-origin, omit
+    let res = await fetch("/api/login", {
+      method: "POST",
+      //mode: "no-cors", // no-cors, cors, *same-origin
       headers: {
         "Content-Type": "application/json"
         // "Content-Type": "application/x-www-form-urlencoded",
       },
-      redirect: "follow", // manual, *follow, error
-      referrer: "no-referrer", // no-referrer, *client
       body: JSON.stringify(this.state)
-      // body data type must match "Content-Type" header
     });
     let data = await res.json();
     console.log(data);

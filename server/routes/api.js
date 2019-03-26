@@ -3,6 +3,6 @@ const passport = require("passport");
 router.post("/login", (req, res) => {
   console.log(req.body);
   console.log("hello");
-  res.sendStatus(200);
+  res.json({ name: "username" });
 });
 module.exports = router;
