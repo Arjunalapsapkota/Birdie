@@ -20,10 +20,17 @@ class Signup extends Component {
   handlesubmit = async event => {
     event.preventDefault();
     console.log(this.state);
-    let res = await fetch("/make a route", {
+    console.log(JSON.stringify(this.state));
+    let res = await fetch("/auth/signup", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+        // "Content-Type": "application/x-www-form-urlencoded",
+      },
       body: JSON.stringify(this.state)
     });
+    let data = await res.json();
+    console.log(data);
   };
   render() {
     return (

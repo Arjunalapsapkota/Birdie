@@ -20,9 +20,8 @@ class Login extends Component {
     event.preventDefault();
     console.log(this.state);
     console.log(JSON.stringify(this.state));
-    let res = await fetch("/api/login", {
+    let res = await fetch("/auth/login", {
       method: "POST",
-      //mode: "no-cors", // no-cors, cors, *same-origin
       headers: {
         "Content-Type": "application/json"
         // "Content-Type": "application/x-www-form-urlencoded",
