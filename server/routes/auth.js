@@ -52,14 +52,19 @@ const signup = (req, res, done) => {
     });
   });
 };
-router.post("/login", localStrategy, (req, res) => {
-  //res.redirect("/profile");
-  console.log("user details :", req.body);
-  res.json(200, {
-    userId: req.user.id,
-    msg: "User Found"
-  });
+
+router.post("/login", function(req, res, next) {
+  passport.authenticate("local", function(err, user, info) {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.json({ message: info.message });
+    }
+    res.json(user);
+  })(req, res, next);
 });
+
 router.post("/signup", signup, localStrategy, (req, res) => {
   //res.redirect("/profile");
   console.log("user details :", req.body);

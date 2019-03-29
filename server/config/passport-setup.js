@@ -7,6 +7,7 @@ const User = require("../models/user-model.js");
 
 passport.serializeUser((user, done) => {
   console.log("# serializing User...");
+  console.log(user);
   done(null, user.id);
 });
 
@@ -24,20 +25,23 @@ const localLogin = new LocalStrategy(localOptions, function(
   password,
   done
 ) {
-  User.findOne({ username }, function(err, user) {
-    if (err) return done(err);
-    if (!user) return done(null, false);
-    else
-      user.comparePassword(password, function(err, isMatch) {
-        if (err) return done(err);
+  console.log("# Searching the Database ..");
+  console.log(username);
+  User.findOne({ username }, (err, user) => {
+    if (err) return done(err, false, { message: "DB error" });
+    if (!user) {
+      return done(null, false, { message: "No User" });
+    } else
+      user.comparePassword(password, (err, isMatch) => {
+        if (err) return done(err, false, { message: "Internal error" });
         if (!isMatch) {
-          console.log("# \n # NO MATCH # Please provide Valid Credentials");
-          return done(null, false);
+          console.log("# NO MATCH: Please provide Valid Credentials");
+          return done(null, false, { message: "Password error" });
         } else {
           console.log(
-            "# \n # User found in the database,\n Forwading the details .."
+            "# User found in the database,\n Forwading the details .."
           );
-          return done(null, user);
+          return done(null, user, { message: "success" });
         }
       });
   });
