@@ -52,6 +52,29 @@ const signup = (req, res, done) => {
     });
   });
 };
+//#########################      important !!
+// router.post("/login", localStrategy, (req, res) => {
+//   //res.redirect("/profile");
+
+//   console.log("user details :", req.user);
+//   res.json(200, {
+//     userId: req.user.id,
+//     msg: "User Found"
+//   });
+// });
+
+//############################   important !!
+// router.post("/login", (req, res) => {
+//   passport.authenticate("local", (err, user, info) => {
+//     if (err) {
+//       return err;
+//     }
+//     if (!user) {
+//       return res.json({ message: info.message });
+//     }
+//     res.json(user);
+//   })(req, res);
+// });
 
 router.post("/login", function(req, res, next) {
   passport.authenticate("local", function(err, user, info) {
@@ -61,7 +84,17 @@ router.post("/login", function(req, res, next) {
     if (!user) {
       return res.json({ message: info.message });
     }
-    res.json(user);
+    // See passport js Document
+    //note that authenticate() is called from within the route handler,
+    //rather than being used as route middleware
+    //This gives the callback access to the req and res objects through closure
+    //now it becomes necessary to establsih a session by calling req.login() and send a response
+    req.login(user, function(err) {
+      if (err) {
+        return next(err);
+      }
+      return res.json(user);
+    });
   })(req, res, next);
 });
 
@@ -83,7 +116,7 @@ router.get(
   passport.authenticate("google"), //what does this do?
 
   (req, res) => {
-    res.redirect("http://localhost:3000/mySiftz");
+    res.redirect("http://localhost:3000/dashboard");
     console.log(req);
   }
 );
