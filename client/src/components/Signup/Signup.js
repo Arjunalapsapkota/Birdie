@@ -32,7 +32,7 @@ class Signup extends Component {
     let data = await res.json();
     console.log(data);
   };
-  handleGoogleAuth = async event => {
+  handleAuth = async event => {
     event.preventDefault();
     console.log("G button clicked");
     let res = await fetch("/auth/google", {
