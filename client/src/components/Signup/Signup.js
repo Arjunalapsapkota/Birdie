@@ -21,7 +21,7 @@ class Signup extends Component {
     event.preventDefault();
     console.log(this.state);
     console.log(JSON.stringify(this.state));
-    let res = await fetch("/auth/signup", {
+    let res = await fetch("https://birdiez.herokuapp.com/auth/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -32,14 +32,14 @@ class Signup extends Component {
     let data = await res.json();
     console.log(data);
   };
-  handleGoogleAuth = async event => {
-    event.preventDefault();
-    console.log("G button clicked");
-    let res = await fetch("/auth/google", {
-      method: "GET",
-      mode: "no-cors"
-    });
-  };
+  // handleAuth = async event => {
+  //   event.preventDefault();
+  //   console.log("G button clicked");
+  //   let res = await fetch("https://birdiez.herokuapp.com/auth/facebook", {
+  //     method: "GET",
+  //     mode: "no-cors"
+  //   });
+  // };
   render() {
     return (
       <Fragment>
@@ -53,13 +53,16 @@ class Signup extends Component {
               <div className="mx-auto">
                 <a
                   className="btn btn-primary m-1"
-                  href="http://localhost:3090/auth/facebook"
+                  href="https://birdiez.herokuapp.com/auth/facebook"
                 >
                   <i className="fab fa-2x fa-facebook" />
                 </a>
+                {/* <button className="btn btn-primary" onClick={this.handleAuth}>
+                  <i className="fab fa-2x fa-facebook" />
+                </button> */}
                 <a
                   className="btn btn-danger m-1"
-                  href="http://localhost:3090/auth/google"
+                  href="https://birdiez.herokuapp.com/auth/google"
                 >
                   <i className="fab fa-2x fa-google" />
                 </a>

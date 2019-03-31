@@ -20,7 +20,8 @@ class Login extends Component {
     event.preventDefault();
     console.log(this.state);
     console.log(JSON.stringify(this.state));
-    let res = await fetch("/auth/login", {
+    //let res = await fetch("/auth/login", {
+    let res = await fetch("https://birdiez.herokuapp.com/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
