@@ -52,13 +52,58 @@ const signup = (req, res, done) => {
     });
   });
 };
-router.post("/login", localStrategy, (req, res) => {
-  //res.redirect("/profile");
-  console.log("user details :", req.body);
-  res.json(200, {
-    userId: req.user.id,
-    msg: "User Found"
-  });
+//#########################      important !!
+// router.post("/login", localStrategy, (req, res) => {
+//   //res.redirect("/profile");
+
+//   console.log("user details :", req.user);
+//   res.json(200, {
+//     userId: req.user.id,
+//     msg: "User Found"
+//   });
+// });
+
+//############################   important !!
+// router.post("/login", (req, res) => {
+//   passport.authenticate("local", (err, user, info) => {
+//     if (err) {
+//       return err;
+//     }
+//     if (!user) {
+//       return res.json({ message: info.message });
+//     }
+//     res.json(user);
+//   })(req, res);
+// });
+
+router.post("/login", function(req, res, next) {
+  passport.authenticate("local", function(err, user, info) {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.json({ message: info.message });
+    }
+    // See passport js Document
+    //note that authenticate() is called from within the route handler,
+    //rather than being used as route middleware
+    //This gives the callback access to the req and res objects through closure
+    //now it becomes necessary to establsih a session by calling req.login() and send a response
+    req.login(user, function(err) {
+      if (err) {
+        return next(err);
+      }
+      return res.json(user);
+    });
+  })(req, res, next);
+});
+router.get("/logout", (req, res) => {
+  req.logout();
+  if (process.env.NODE_ENV === "production")
+    // For Heroku
+    res.redirect("https://birdiez.herokuapp.com/login");
+  // For Local Host
+  else res.redirect("http://localhost:3000/login");
 });
 router.post("/signup", signup, localStrategy, (req, res) => {
   //res.redirect("/profile");
@@ -69,17 +114,43 @@ router.post("/signup", signup, localStrategy, (req, res) => {
   });
 });
 
-router.get("/google", googleauth); // Google auth
+// Google auth Route ###############################
+router.get("/google", googleauth);
 
 //auth callback from google
+router.get("/google/redirect", passport.authenticate("google"), (req, res) => {
+  if (process.env.NODE_ENV === "production")
+    // For Heroku
+    res.redirect("https://birdiez.herokuapp.com/dash");
+  // For Local Host
+  else res.redirect("http://localhost:3000/dash");
+});
+
+// Facebook Auth route ###############################
+router.get("/facebook", passport.authenticate("facebook"));
+
+// auth callback from facebook
 router.get(
-  "/google/redirect",
-
-  passport.authenticate("google"), //what does this do?
-
+  "/facebook/redirect",
+  passport.authenticate("facebook", { failureRedirect: "/login" }),
+  (err, req, res, next) => {
+    if (err.name === "TokenError") {
+      if (process.env.NODE_ENV === "production")
+        // For Heroku
+        res.redirect("https://birdiez.herokuapp.com/login");
+      // For Local Host
+      else res.redirect("http://localhost:3000/login");
+    } else {
+      // Handle other errors here
+    }
+  },
   (req, res) => {
-    res.redirect("http://localhost:3000/mySiftz");
-    console.log(req);
+    if (process.env.NODE_ENV === "production")
+      // For Heroku
+      res.redirect("https://birdiez.herokuapp.com/dash");
+    // For Local Host
+    else res.redirect("http://localhost:3000/dash");
+    //res.send(req.user);
   }
 );
 module.exports = router;

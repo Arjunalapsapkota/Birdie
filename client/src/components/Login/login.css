@@ -14,3 +14,8 @@
 .log-form form {
   margin-top: 1em;
 }
+
+a:hover {
+  cursor: pointer;
+  cursor: hand;
+}

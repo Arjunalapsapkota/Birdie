@@ -32,6 +32,14 @@ class Signup extends Component {
     let data = await res.json();
     console.log(data);
   };
+  handleGoogleAuth = async event => {
+    event.preventDefault();
+    console.log("G button clicked");
+    let res = await fetch("/auth/google", {
+      method: "GET",
+      mode: "no-cors"
+    });
+  };
   render() {
     return (
       <Fragment>
@@ -43,12 +51,18 @@ class Signup extends Component {
 
             <form>
               <div className="mx-auto">
-                <btn className="btn btn-primary m-1">
-                  <i className=" fab fa-2x fa-facebook-square" />
-                </btn>
-                <btn className="btn btn-danger m-1">
+                <a
+                  className="btn btn-primary m-1"
+                  href="http://localhost:3090/auth/facebook"
+                >
+                  <i className="fab fa-2x fa-facebook" />
+                </a>
+                <a
+                  className="btn btn-danger m-1"
+                  href="http://localhost:3090/auth/google"
+                >
                   <i className="fab fa-2x fa-google" />
-                </btn>
+                </a>
               </div>
               <label htmlFor="username">
                 Choose a Username, Must be unique:
