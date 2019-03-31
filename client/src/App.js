@@ -7,22 +7,20 @@ import {
   Redirect
 } from "react-router-dom";
 import Home from "./components/Home";
-// import MySiftz from "./components/MySiftz";
-// import Search from "./components/Search";
-// import SignUp from "./components/SignUp";
-// import LogIn from "./components/LogIn";
+import Signup from "./components/Signup";
+
 // // import { RedirectUser } from "./components/Login/RedirectUser";
 
 class App extends Component {
   render() {
     return (
-      <Home />
-      // <Router>
-      //   <Switch>
-      //     <Route exact path="/" component={Home} />
-      //     <Route exact path="*" component={Home} />
-      //   </Switch>
-      // </Router>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/signup" component={Signup} />
+          <Route exact path="*" component={Home} />
+        </Switch>
+      </Router>
     );
   }
 }

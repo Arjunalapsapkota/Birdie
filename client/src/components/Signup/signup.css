@@ -1,0 +1,22 @@
+.poly-svg {
+  margin-top: 0.75em;
+}
+.sign-form {
+  width: 30em;
+  border: 2px solid rgb(105, 94, 202);
+  border-radius: 15px;
+  padding: 0.75em;
+}
+.account {
+  margin: 4em 0 4em 0;
+  color: grey;
+}
+.sign-form form {
+  margin-top: 1em;
+}
+i {
+  padding: 0 2.105em 0 2.105em;
+}
+label {
+  font-size: 0.75em;
+}
