@@ -13,7 +13,7 @@ class Dash extends Component {
           <p> User Profile</p>
           <a
             className="btn btn-primary m-1"
-            href="http://localhost:3090/auth/logout"
+            href="http://birdiez.herokuapp.com/auth/logout"
           >
             Logout
           </a>
