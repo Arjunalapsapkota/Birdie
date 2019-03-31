@@ -56,13 +56,10 @@ class Signup extends Component {
                 <a className="btn btn-primary m-1" href="/auth/facebook">
                   <i className="fab fa-2x fa-facebook" />
                 </a>
-                <button className="btn btn-danger" onClick={this.handleAuth}>
-                  <i className="fab fa-2x fa-google" />
+                <button className="btn btn-primary" onClick={this.handleAuth}>
+                  <i className="fab fa-2x fa-facebook" />
                 </button>
-                {/* <a
-                  className="btn btn-danger m-1"
-                  href="https://birdiez.herokuapp.com/auth/google"
-                >
+                {/* <a className="btn btn-danger m-1" href="/auth/google">
                   <i className="fab fa-2x fa-google" />
                 </a> */}
               </div>
