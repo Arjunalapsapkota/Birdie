@@ -1,0 +1,9 @@
+.image {
+  width: 5em;
+  height: auto;
+  display: absolute;
+}
+.logo {
+  width: 10em;
+  height: auto;
+}

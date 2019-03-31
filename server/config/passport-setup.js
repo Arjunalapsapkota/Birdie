@@ -53,14 +53,11 @@ passport.use(localLogin);
 passport.use(
   new GoogleStrategy(
     {
-      //option for strategy
-
-      //callbackURL: "/auth/google/redirect", //this is for local
       clientID: process.env.GOOGLE_CLIENT,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: "/auth/google/redirect" //this is for local
 
-      // callbackURL: "https://resktop.herokuapp.com/auth/google/redirect"
+      // callbackURL: "https://birdiez.herokuapp.com/auth/google/redirect"
     },
     (accessToken, refreshToken, profile, done) => {
       //passport callback function
@@ -90,23 +87,26 @@ passport.use(
 passport.use(
   new FacebookStrategy(
     {
-      clientID: process.env.Facebook_CLIENTID,
-      clientSecret: process.env.Facebook_CLIENTSECRET,
-      callbackURL: "/auth/facebook/redirect"
+      //option for strategy
+
+      callbackURL: "http://localhost:3090/auth/facebook/redirect", //this is for local
+      clientID: process.env.APP_ID,
+      clientSecret: process.env.APP_SECRET
+      // callbackURL: "https://shiftz-jp.herokuapp.com/auth/google/redirect"
     },
-    function(accessToken, refreshToken, profile, done) {
-      console.log(
-        "#### #### #### \n Here Comes the Data from Instagram \n *****\n data:",
-        profile
-      );
-      const email = profile.emails[0].value;
-      User.findOne({ email: email }).then(userExsist => {
+    (accessToken, refreshToken, profile, done) => {
+      //passport callback function
+      //   console.log("callback is fired");
+      //   console.log("where is ID?", profile);
+      //check if user is already in our database
+
+      User.findOne({ googleIdemail: profile.id }).then(userExsist => {
         if (userExsist) {
           console.log("user found", userExsist);
           done(null, userExsist);
         } else {
           new User({
-            email: email,
+            userName: profile.displayName,
             googleId: profile.id
           })
             .save()

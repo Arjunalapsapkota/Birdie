@@ -20,3 +20,7 @@ i {
 label {
   font-size: 0.75em;
 }
+a:hover {
+  cursor: pointer;
+  cursor: hand;
+}

@@ -97,7 +97,14 @@ router.post("/login", function(req, res, next) {
     });
   })(req, res, next);
 });
-
+router.get("/logout", (req, res) => {
+  req.logout();
+  if (process.env.NODE_ENV === "production")
+    // For Heroku
+    res.redirect("https://birdiez.herokuapp.com/login");
+  // For Local Host
+  else res.redirect("http://localhost:3000/login");
+});
 router.post("/signup", signup, localStrategy, (req, res) => {
   //res.redirect("/profile");
   console.log("user details :", req.body);
@@ -107,17 +114,43 @@ router.post("/signup", signup, localStrategy, (req, res) => {
   });
 });
 
-router.get("/google", googleauth); // Google auth
+// Google auth Route ###############################
+router.get("/google", googleauth);
 
 //auth callback from google
+router.get("/google/redirect", passport.authenticate("google"), (req, res) => {
+  if (process.env.NODE_ENV === "production")
+    // For Heroku
+    res.redirect("https://birdiez.herokuapp.com/dash");
+  // For Local Host
+  else res.redirect("http://localhost:3000/dash");
+});
+
+// Facebook Auth route ###############################
+router.get("/facebook", passport.authenticate("facebook"));
+
+// auth callback from facebook
 router.get(
-  "/google/redirect",
-
-  passport.authenticate("google"), //what does this do?
-
+  "/facebook/redirect",
+  passport.authenticate("facebook", { failureRedirect: "/login" }),
+  (err, req, res, next) => {
+    if (err.name === "TokenError") {
+      if (process.env.NODE_ENV === "production")
+        // For Heroku
+        res.redirect("https://birdiez.herokuapp.com/login");
+      // For Local Host
+      else res.redirect("http://localhost:3000/login");
+    } else {
+      // Handle other errors here
+    }
+  },
   (req, res) => {
-    res.redirect("http://localhost:3000/dashboard");
-    console.log(req);
+    if (process.env.NODE_ENV === "production")
+      // For Heroku
+      res.redirect("https://birdiez.herokuapp.com/dash");
+    // For Local Host
+    else res.redirect("http://localhost:3000/dash");
+    //res.send(req.user);
   }
 );
 module.exports = router;
