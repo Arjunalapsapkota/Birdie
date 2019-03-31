@@ -39,6 +39,8 @@ class Signup extends Component {
       method: "GET",
       mode: "no-cors"
     });
+    let data = await res.json();
+    console.log(data);
   };
   render() {
     return (
@@ -54,12 +56,12 @@ class Signup extends Component {
                 <a className="btn btn-primary m-1" href="/auth/facebook">
                   <i className="fab fa-2x fa-facebook" />
                 </a>
-                {/* <button className="btn btn-primary" onClick={this.handleAuth}>
+                <button className="btn btn-primary" onClick={this.handleAuth}>
                   <i className="fab fa-2x fa-facebook" />
-                </button> */}
-                <a className="btn btn-danger m-1" href="/auth/google">
+                </button>
+                {/* <a className="btn btn-danger m-1" href="/auth/google">
                   <i className="fab fa-2x fa-google" />
-                </a>
+                </a> */}
               </div>
               <label htmlFor="username">
                 Choose a Username, Must be unique:

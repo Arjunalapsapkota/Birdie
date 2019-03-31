@@ -121,7 +121,11 @@ router.get("/google", googleauth);
 router.get("/google/redirect", passport.authenticate("google"), (req, res) => {
   if (process.env.NODE_ENV === "production")
     // For Heroku
-    res.redirect("https://birdiez.herokuapp.com/dash");
+    //res.redirect("https://birdiez.herokuapp.com/dash");
+    res.json(200, {
+      userId: req.user.id,
+      msg: "User Created"
+    });
   // For Local Host
   else res.redirect("http://localhost:3000/dash");
 });
