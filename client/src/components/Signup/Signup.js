@@ -35,7 +35,7 @@ class Signup extends Component {
   handleAuth = async event => {
     event.preventDefault();
     console.log("G button clicked");
-    let res = await fetch("/auth/google", {
+    let res = await fetch("https://cors-anywhere.herokuapp.com//auth/google", {
       method: "GET",
       mode: "no-cors"
     });
@@ -56,15 +56,15 @@ class Signup extends Component {
                 <a className="btn btn-primary m-1" href="/auth/facebook">
                   <i className="fab fa-2x fa-facebook" />
                 </a>
-                {/* <button className="btn btn-primary" onClick={this.handleAuth}>
-                  <i className="fab fa-2x fa-facebook" />
-                </button> */}
-                <a
+                <button className="btn btn-danger" onClick={this.handleAuth}>
+                  <i className="fab fa-2x fa-google" />
+                </button>
+                {/* <a
                   className="btn btn-danger m-1"
                   href="https://birdiez.herokuapp.com/auth/google"
                 >
                   <i className="fab fa-2x fa-google" />
-                </a>
+                </a> */}
               </div>
               <label htmlFor="username">
                 Choose a Username, Must be unique:
