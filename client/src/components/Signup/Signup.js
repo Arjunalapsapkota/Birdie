@@ -35,7 +35,7 @@ class Signup extends Component {
   handleAuth = async event => {
     event.preventDefault();
     console.log("G button clicked");
-    let res = await fetch("https://cors-anywhere.herokuapp.com//auth/google", {
+    let res = await fetch("/auth/google", {
       method: "GET",
       mode: "no-cors"
     });
