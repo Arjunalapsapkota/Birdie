@@ -2,7 +2,10 @@ import React, { Component, Fragment } from "react";
 import "./signup.css";
 import birdie from "../../images/bird.png";
 import birdiee from "../../images/Birdiee.png";
-
+const GOOGLE_LOGIN =
+  process.env.NODE_ENV === "production"
+    ? "https://birdiez.herokuapp.com/auth/google"
+    : "http://localhost:3090/auth/google";
 class Signup extends Component {
   state = {
     username: "",
@@ -59,10 +62,7 @@ class Signup extends Component {
                 {/* <button className="btn btn-danger" onClick={this.handleAuth}>
                   <i className="fab fa-2x fa-google" />
                 </button> */}
-                <a
-                  className="btn btn-danger m-1"
-                  href="https://birdiez.herokuapp.com/auth/google"
-                >
+                <a className="btn btn-danger m-1" href={GOOGLE_LOGIN}>
                   <i className="fab fa-2x fa-google" />
                 </a>
               </div>
