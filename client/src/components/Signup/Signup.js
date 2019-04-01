@@ -2,10 +2,16 @@ import React, { Component, Fragment } from "react";
 import "./signup.css";
 import birdie from "../../images/bird.png";
 import birdiee from "../../images/Birdiee.png";
+
 const GOOGLE_LOGIN =
   process.env.NODE_ENV === "production"
     ? "https://birdiez.herokuapp.com/auth/google"
     : "http://localhost:3090/auth/google";
+const FACEBOOK_LOGIN =
+  process.env.NODE_ENV === "production"
+    ? "https://birdiez.herokuapp.com/auth/facebook"
+    : "http://localhost:3090/auth/facebook";
+
 class Signup extends Component {
   state = {
     username: "",
@@ -35,16 +41,6 @@ class Signup extends Component {
     let data = await res.json();
     console.log(data);
   };
-  handleAuth = async event => {
-    event.preventDefault();
-    console.log("G button clicked");
-    let res = await fetch("/auth/google", {
-      method: "GET",
-      mode: "cors"
-    });
-    let data = await res.json();
-    console.log(data);
-  };
   render() {
     return (
       <Fragment>
@@ -56,12 +52,10 @@ class Signup extends Component {
 
             <form>
               <div className="mx-auto">
-                <a className="btn btn-primary m-1" href="/auth/facebook">
+                <a className="btn btn-primary m-1" href={FACEBOOK_LOGIN}>
                   <i className="fab fa-2x fa-facebook" />
                 </a>
-                {/* <button className="btn btn-danger" onClick={this.handleAuth}>
-                  <i className="fab fa-2x fa-google" />
-                </button> */}
+
                 <a className="btn btn-danger m-1" href={GOOGLE_LOGIN}>
                   <i className="fab fa-2x fa-google" />
                 </a>
