@@ -2,13 +2,23 @@ import React, { Component, Fragment } from "react";
 import "./signup.css";
 import birdie from "../../images/bird.png";
 import birdiee from "../../images/Birdiee.png";
+import { Redirect } from "react-router-dom";
+const GOOGLE_LOGIN =
+  process.env.NODE_ENV === "production"
+    ? "https://birdiez.herokuapp.com/auth/google"
+    : "http://localhost:3090/auth/google";
+const FACEBOOK_LOGIN =
+  process.env.NODE_ENV === "production"
+    ? "https://birdiez.herokuapp.com/auth/facebook"
+    : "http://localhost:3090/auth/facebook";
 
 class Signup extends Component {
   state = {
     username: "",
     email: "",
     password: "",
-    phone: ""
+    phone: "",
+    login: false
   };
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -30,15 +40,10 @@ class Signup extends Component {
       body: JSON.stringify(this.state)
     });
     let data = await res.json();
-    console.log(data);
+    if (data.msg === "OK") this.setState({ login: true });
   };
-  handleGoogleAuth = async event => {
-    event.preventDefault();
-    console.log("G button clicked");
-    let res = await fetch("/auth/google", {
-      method: "GET",
-      mode: "no-cors"
-    });
+  handleRedirect = () => {
+    if (this.state.login) return <Redirect to="/dash" />;
   };
   render() {
     return (
@@ -51,16 +56,11 @@ class Signup extends Component {
 
             <form>
               <div className="mx-auto">
-                <a
-                  className="btn btn-primary m-1"
-                  href="http://localhost:3090/auth/facebook"
-                >
+                <a className="btn btn-primary m-1" href={FACEBOOK_LOGIN}>
                   <i className="fab fa-2x fa-facebook" />
                 </a>
-                <a
-                  className="btn btn-danger m-1"
-                  href="http://localhost:3090/auth/google"
-                >
+
+                <a className="btn btn-danger m-1" href={GOOGLE_LOGIN}>
                   <i className="fab fa-2x fa-google" />
                 </a>
               </div>
@@ -123,6 +123,7 @@ class Signup extends Component {
             </form>
           </div>
         </div>
+        {this.state.login ? this.handleRedirect() : null}
       </Fragment>
     );
   }

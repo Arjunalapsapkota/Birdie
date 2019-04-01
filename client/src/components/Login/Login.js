@@ -1,13 +1,19 @@
 import React, { Component, Fragment } from "react";
 import "./login.css";
-
 import birdie from "../../images/bird.png";
 import birdiee from "../../images/Birdiee.png";
+import { Redirect } from "react-router-dom";
 const axios = require("axios");
+
+const FORM_SUBMIT =
+  process.env.NODE_ENV === "production"
+    ? "https://birdiez.herokuapp.com/auth/login"
+    : "http://localhost:3090/auth/login";
 class Login extends Component {
   state = {
     username: "",
-    password: ""
+    password: "",
+    login: false
   };
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -20,7 +26,8 @@ class Login extends Component {
     event.preventDefault();
     console.log(this.state);
     console.log(JSON.stringify(this.state));
-    let res = await fetch("/auth/login", {
+    //let res = await fetch("/auth/login", {
+    let res = await fetch(FORM_SUBMIT, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -29,8 +36,13 @@ class Login extends Component {
       body: JSON.stringify(this.state)
     });
     let data = await res.json();
-    console.log(data);
+    if (data.msg === "OK") this.setState({ login: true });
   };
+
+  handleRedirect = () => {
+    if (this.state.login) return <Redirect to="/dash" />;
+  };
+
   render() {
     return (
       <Fragment>
@@ -77,6 +89,7 @@ class Login extends Component {
             </form>
           </div>
         </div>
+        {this.state.login ? this.handleRedirect() : null}
       </Fragment>
     );
   }
