@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import "./signup.css";
 import birdie from "../../images/bird.png";
 import birdiee from "../../images/Birdiee.png";
-
+import { Redirect } from "react-router-dom";
 const GOOGLE_LOGIN =
   process.env.NODE_ENV === "production"
     ? "https://birdiez.herokuapp.com/auth/google"
@@ -17,7 +17,8 @@ class Signup extends Component {
     username: "",
     email: "",
     password: "",
-    phone: ""
+    phone: "",
+    login: false
   };
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -39,7 +40,10 @@ class Signup extends Component {
       body: JSON.stringify(this.state)
     });
     let data = await res.json();
-    console.log(data);
+    if (data.msg === "OK") this.setState({ login: true });
+  };
+  handleRedirect = () => {
+    if (this.state.login) return <Redirect to="/dash" />;
   };
   render() {
     return (
@@ -119,6 +123,7 @@ class Signup extends Component {
             </form>
           </div>
         </div>
+        {this.state.login ? this.handleRedirect() : null}
       </Fragment>
     );
   }

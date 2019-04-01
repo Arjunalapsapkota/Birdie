@@ -75,7 +75,12 @@ const signup = (req, res, done) => {
 //     res.json(user);
 //   })(req, res);
 // });
+const LOGIN_REDIRECT =
+  process.env.NODE_ENV === "production"
+    ? "https://birdiez.herokuapp.com/dash"
+    : "http://localhost:3000/dash";
 
+// Login Route ##########################################################
 router.post("/login", function(req, res, next) {
   passport.authenticate("local", function(err, user, info) {
     if (err) {
@@ -93,10 +98,45 @@ router.post("/login", function(req, res, next) {
       if (err) {
         return next(err);
       }
-      return res.json(user);
+      return res.json(200, {
+        msg: "OK"
+      });
+      //return res.redirect(200, "http://localhost:3000/dash");
     });
   })(req, res, next);
 });
+
+// SignUP ROute #############################################################
+
+// router.post("/signup", signup, localStrategy, (req, res) => {
+//   //res.redirect("/profile");
+//   console.log("user details :", req.body);
+//   res.json(200, {
+//     userId: req.user.id,
+//     msg: "User Created"
+//   });
+// });
+router.post("/signup", signup, function(req, res, next) {
+  passport.authenticate("local", function(err, user, info) {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.json({ message: info.message });
+    }
+    req.login(user, function(err) {
+      if (err) {
+        return next(err);
+      }
+      return res.json(200, {
+        msg: "OK"
+      });
+      //return res.redirect(200, "http://localhost:3000/dash");
+    });
+  })(req, res, next);
+});
+
+// LOGOOUT Route #############################################################
 router.get("/logout", (req, res) => {
   req.logout();
   if (process.env.NODE_ENV === "production")
@@ -105,16 +145,8 @@ router.get("/logout", (req, res) => {
   // For Local Host
   else res.redirect("http://localhost:3000/login");
 });
-router.post("/signup", signup, localStrategy, (req, res) => {
-  //res.redirect("/profile");
-  console.log("user details :", req.body);
-  res.json(200, {
-    userId: req.user.id,
-    msg: "User Created"
-  });
-});
 
-// Google auth Route ###############################
+// Google auth Route ##########################################################
 router.get("/google", googleauth);
 
 //auth callback from google
@@ -130,7 +162,7 @@ router.get("/google/redirect", passport.authenticate("google"), (req, res) => {
   else res.redirect("http://localhost:3000/dash");
 });
 
-// Facebook Auth route ###############################
+// Facebook Auth route #########################################################
 router.get("/facebook", passport.authenticate("facebook"));
 
 // auth callback from facebook
@@ -157,4 +189,6 @@ router.get(
     //res.send(req.user);
   }
 );
+//#################################################################################
+
 module.exports = router;
