@@ -1,5 +1,5 @@
 .poly-svg {
-  margin-top: 2em;
+  margin-top: 6em;
 }
 .log-form {
   width: 30em;
@@ -14,16 +14,14 @@
 .log-form form {
   margin-top: 1em;
 }
-
 a:hover {
   cursor: pointer;
   cursor: hand;
 }
-.Password,
-.Username {
-  color: brown;
-  display: show;
-}
 .initial {
   display: none;
+}
+.checkfail {
+  display: show;
+  color: red;
 }

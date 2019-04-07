@@ -11,20 +11,29 @@ const FORM_SUBMIT =
     : "http://localhost:3090/auth/login";
 class Login extends Component {
   state = {
-    username: "",
-    password: "",
-    login: false
+    field: {
+      username: "",
+      password: ""
+    },
+    login: false,
+    Username: "initial",
+    Password: "initial"
   };
   handleInputChange = event => {
     const { name, value } = event.target;
-    console.log(this.state);
-    this.setState({
-      [name]: value
-    });
+    if (name === "username") this.setState({ Username: "initial" });
+    if (name === "password") this.setState({ Password: "initial" });
+    console.log(this.state.field);
+    this.setState(previousStatus => ({
+      field: {
+        ...previousStatus.field,
+        [name]: value
+      }
+    }));
   };
   handlesubmit = async event => {
     event.preventDefault();
-    console.log(this.state);
+    console.log(this.state.field);
     console.log(JSON.stringify(this.state));
     //let res = await fetch("/auth/login", {
     let res = await fetch(FORM_SUBMIT, {
@@ -33,15 +42,24 @@ class Login extends Component {
         "Content-Type": "application/json"
         // "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: JSON.stringify(this.state)
+      body: JSON.stringify(this.state.field)
     });
     let data = await res.json();
+    console.log(data);
+    this.setclass(data.message);
     if (data.msg === "OK") this.setState({ login: true });
   };
 
   handleRedirect = () => {
     if (this.state.login) return <Redirect to="/dash" />;
   };
+
+  setclass(data) {
+    if (data === "No_User") this.setState({ Username: "Username" });
+    else if (data === "Password_Error") {
+      this.setState({ Password: "Password" });
+    }
+  }
 
   render() {
     return (
@@ -61,6 +79,10 @@ class Login extends Component {
                 onChange={this.handleInputChange}
                 placeholder="username"
               />
+
+              <label className={this.state.Username}>
+                <i className="fas fa-times" /> Username Doesn't exist
+              </label>
               <input
                 type="password"
                 className="m-2"
@@ -70,6 +92,10 @@ class Login extends Component {
                 value={this.state.password}
                 onChange={this.handleInputChange}
               />
+              <label className={this.state.Password}>
+                <i className="fas fa-times" />
+                Password doesn't match
+              </label>
               <br />
               <button
                 type="submit"
@@ -83,7 +109,7 @@ class Login extends Component {
                 Dont have an account? Sign Up Here
               </a>
               <br />
-              <a className="forgot" href="#">
+              <a className="forgot" href="/forgot">
                 Forgot password?
               </a>
             </form>
