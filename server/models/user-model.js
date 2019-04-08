@@ -9,7 +9,9 @@ const userSchema = new mongoose.Schema({
   phone: String,
   google: String,
   facebook: String,
-  password: String
+  password: String,
+  resetPasswordToken: String,
+  resetPasswordExpires: Date
 });
 userSchema.pre("save", function(next) {
   var user = this;

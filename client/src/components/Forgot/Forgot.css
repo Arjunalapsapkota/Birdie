@@ -21,7 +21,7 @@ a:hover {
 .initial {
   display: none;
 }
-.checkfail {
+.display {
   display: show;
   color: red;
 }

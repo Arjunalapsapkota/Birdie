@@ -9,8 +9,8 @@ const localStrategy = passport.authenticate("local", { session: true }); // Loca
 const googleauth = passport.authenticate("google", { scope: ["Email"] }); // google Strategy
 
 const signup = (req, res, done) => {
-  const username = req.body.username;
-  const password = req.body.password;
+  const { username, password, email, phone } = req.body;
+
   console.log("# \n # received-data from the Form: \n", req.body);
 
   if (!username || !password) {
@@ -30,7 +30,9 @@ const signup = (req, res, done) => {
 
     const user = new User({
       username,
-      password
+      password,
+      email,
+      phone
       // add the rest of the info from the form and save it to its proper place in the schema
     });
 

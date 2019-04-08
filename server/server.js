@@ -1,6 +1,7 @@
 require("dotenv").config();
 const mongodb = require("mongoose");
 const authroutes = require("./routes/auth.js");
+const recovery = require("./routes/recovery.js");
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
@@ -9,7 +10,8 @@ const app = express();
 const passport = require("passport");
 const cookieSession = require("cookie-session");
 const passportSetup = require("./config/passport-setup");
-var cors = require("cors");
+const cors = require("cors");
+const flash = require("express-flash");
 app.use(cors());
 // app.use("*", function(req, res, next) {
 //   //replace localhost:8080 to the ip address:port of your server
@@ -36,12 +38,13 @@ app.use(
     keys: [process.env.COOKIEKEY]
   })
 );
-
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
 // Define auth routes here
 app.use("/auth", authroutes);
+app.use("/recovery", recovery);
 
 try {
   mongodb.connect(process.env.MONGO_DB_URL, () => {
