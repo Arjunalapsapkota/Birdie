@@ -24,9 +24,24 @@ router.get("/reset/:user", function(req, res) {
     function(err, user) {
       if (!user) {
         req.flash("error", "Password reset token is invalid or has expired.");
-        return res.redirect("http://localhost:3000/forgot");
+        // return res.redirect("http://localhost:3000/forgot");
+        if (process.env.NODE_ENV === "production")
+          // For Heroku
+          return res.redirect("https://birdiez.herokuapp.com/forgot");
+        // For Local Host
+        else return res.redirect("http://localhost:3000/forgot");
       }
-      res.redirect("http://localhost:3000/credentials/" + req.params.user);
+      //res.redirect("http://localhost:3000/credentials/" + req.params.user);
+      if (process.env.NODE_ENV === "production")
+        // For Heroku
+        return res.redirect(
+          "https://birdiez.herokuapp.com/credentials/" + req.params.user
+        );
+      // For Local Host
+      else
+        return res.redirect(
+          "http://localhost:3000/credentials/" + req.params.user
+        );
     }
   );
 });
