@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-
+import { connect } from "react-redux";
 import "./Dash.css";
 import bird from "../../images/bird.png";
 import birdie from "../../images/Birdiee.png";
@@ -16,7 +16,13 @@ class Dash extends Component {
           <img src={birdie} className="logo" alt="" />
           <img src={bird} className="image" alt="" />
           <p> User Profile</p>
-          <a className="btn btn-primary m-1" href={LOGOUT}>
+          <a
+            className="btn btn-primary m-1"
+            href={LOGOUT}
+            onClick={() => {
+              this.props.Logout();
+            }}
+          >
             Logout
           </a>
         </div>
@@ -25,4 +31,24 @@ class Dash extends Component {
   }
 }
 
-export default Dash;
+const mapStateToProps = state => {
+  return {
+    store: state
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    Login: () => {
+      dispatch({
+        type: "Login"
+      });
+    },
+    Logout: () => {
+      dispatch({ type: "Logout" });
+    }
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Dash);

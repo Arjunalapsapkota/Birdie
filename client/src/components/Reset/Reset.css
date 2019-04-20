@@ -1,0 +1,10 @@
+.initial {
+  border-color: blue;
+  border-width: thick;
+  border-radius: 1em;
+}
+.display {
+  border-color: red;
+  border-width: thick;
+  border-radius: 1em;
+}

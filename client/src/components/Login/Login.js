@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from "react";
 import "./login.css";
-import birdie from "../../images/bird.png";
+//import birdie from "../../images/bird.png";
 import birdiee from "../../images/Birdiee.png";
 import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 const axios = require("axios");
 
 const FORM_SUBMIT =
@@ -47,7 +48,10 @@ class Login extends Component {
     let data = await res.json();
     console.log(data);
     this.setclass(data.message);
-    if (data.msg === "OK") this.setState({ login: true });
+    if (data.msg === "OK") {
+      this.props.Login();
+      this.setState({ login: true });
+    }
   };
 
   handleRedirect = () => {
@@ -121,4 +125,24 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = state => {
+  return {
+    store: state
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    Login: () => {
+      dispatch({
+        type: "Login"
+      });
+    },
+    Logout: () => {
+      dispatch({ type: "Logout" });
+    }
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);
