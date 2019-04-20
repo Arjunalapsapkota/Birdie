@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import "./Forgot.css";
 import birdiee from "../../images/Birdiee.png";
 const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const CRED_SUBMIT =
+  process.env.NODE_ENV === "production"
+    ? "https://birdiez.herokuapp.com/recovery/forgot"
+    : "http://localhost:3090/recovery/forgot";
 class Forgot extends Component {
   state = {
     email: "",
@@ -21,7 +25,7 @@ class Forgot extends Component {
     event.preventDefault();
 
     const makeapicall = async () => {
-      let res = await fetch("http://localhost:3090/recovery/forgot", {
+      let res = await fetch(CRED_SUBMIT, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
