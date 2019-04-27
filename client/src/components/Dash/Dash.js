@@ -1,8 +1,13 @@
 import React, { Component, Fragment } from "react";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import "./Dash.css";
 import bird from "../../images/bird.png";
 import birdie from "../../images/Birdiee.png";
+const AUTH =
+  process.env.NODE_ENV === "production"
+    ? "https://birdiez.herokuapp.com/auth/check"
+    : "http://localhost:3090/auth/check";
 
 const LOGOUT =
   process.env.NODE_ENV === "production"

@@ -28,6 +28,17 @@ class Signup extends Component {
       [name]: value
     });
   };
+  makeapi = async event => {
+    event.preventDefault();
+    fetch(GOOGLE_LOGIN, { mode: "no-cors" })
+      .then(res => {
+        console.log(res);
+        return res.json();
+      })
+      .then(data => {
+        console.log("data", data);
+      });
+  };
   handlesubmit = async event => {
     event.preventDefault();
     console.log(this.state);
@@ -60,10 +71,12 @@ class Signup extends Component {
 
             <form>
               <div className="mx-auto">
-                <a className="btn btn-primary m-1" href={FACEBOOK_LOGIN}>
+                {/* <a className="btn btn-primary m-1" href={FACEBOOK_LOGIN}>
                   <i className="fab fa-2x fa-facebook" />
-                </a>
-
+                </a> */}
+                <button onClick={this.makeapi}>
+                  <i className="fab fa-2x fa-facebook" />
+                </button>
                 <a className="btn btn-danger m-1" href={GOOGLE_LOGIN}>
                   <i className="fab fa-2x fa-google" />
                 </a>

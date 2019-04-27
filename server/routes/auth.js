@@ -54,6 +54,20 @@ const signup = (req, res, done) => {
     });
   });
 };
+//#########################      iportant!!   -- for route protection
+/* GET Home Page */
+// router.get("/home", isAuthenticated, function(req, res) {
+//   res.render("home", { user: req.user });
+// });
+
+// As with any middleware it is quintessential to call next()
+// if the user is authenticated
+// var isAuthenticated = function(req, res, next) {
+//   if (req.isAuthenticated()) return next();
+//   res.redirect("/");
+// };
+//  ***********************
+
 //#########################      important !!
 // router.post("/login", localStrategy, (req, res) => {
 //   //res.redirect("/profile");
@@ -153,15 +167,19 @@ router.get("/google", googleauth);
 
 //auth callback from google
 router.get("/google/redirect", passport.authenticate("google"), (req, res) => {
-  if (process.env.NODE_ENV === "production")
-    // For Heroku
-    res.redirect("https://birdiez.herokuapp.com/dash");
+  res.json(200, {
+    userId: req.user.id,
+    msg: ""
+  });
+  // if (process.env.NODE_ENV === "production")
+  //   // For Heroku
+  //   res.redirect("https://birdiez.herokuapp.com/dash");
   // res.json(200, {
   //   userId: req.user.id,
   //   msg: "User Created"
   // });
   // For Local Host
-  else res.redirect("http://localhost:3000/dash");
+  // else res.redirect("http://localhost:3000/dash");
 });
 
 // Facebook Auth route #########################################################
@@ -192,5 +210,29 @@ router.get(
   }
 );
 //#################################################################################
+const checkAuth = (req, res, next) => {
+  console.log("auth check request received..");
+  if (req.isAuthenticated()) {
+    console.log("user is authenticated... forwarding#");
+    next();
+  } else {
+    console.log("user is not authenticated... ");
+    // if (process.env.NODE_ENV === "production")
+    //   // For Heroku
+    //   res.redirect("https://birdiez.herokuapp.com/home");
+    // // For Local Host
+    // else res.redirect("http://localhost:3000/home");
+    return res.json(200, {
+      msg: "false"
+    });
+  }
+};
+router.get("/check", checkAuth, (req, res) => {
+  console.log("User Validated..");
+  return res.json(200, {
+    msg: "OK"
+  });
+});
 
+//#################################################################################
 module.exports = router;
