@@ -30,7 +30,8 @@ class Signup extends Component {
   };
   makeapi = async event => {
     event.preventDefault();
-    fetch(GOOGLE_LOGIN, { mode: "no-cors" })
+    const config = { headers: { something: "anything" } };
+    fetch(GOOGLE_LOGIN, config)
       .then(res => {
         console.log(res);
         return res.json();
