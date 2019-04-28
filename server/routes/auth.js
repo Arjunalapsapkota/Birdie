@@ -192,5 +192,16 @@ router.get(
   }
 );
 //#################################################################################
-
+router.get("/check", (req, res) => {
+  console.log(" \n ## request received ...", req.cookies);
+  console.log(" \n ## request received ...", req.session);
+  console.log(" \n ## request received ...", req.user);
+  req.isAuthenticated()
+    ? (console.log("User authenticated"),
+      res.json(200, {
+        userId: req.user,
+        msg: "OK"
+      }))
+    : res.json(400, { msg: "Unauthorized" });
+});
 module.exports = router;
