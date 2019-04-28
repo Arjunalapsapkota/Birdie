@@ -6,8 +6,8 @@ import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 const GOOGLE_LOGIN =
   process.env.NODE_ENV === "production"
-    ? "https://birdiez.herokuapp.com/auth/google"
-    : "http://localhost:3090/auth/google";
+    ? "https://cors-anywhere.herokuapp.com/https://birdiez.herokuapp.com/auth/google"
+    : "https://cors-anywhere.herokuapp.com/http://localhost:3090/auth/google";
 const FACEBOOK_LOGIN =
   process.env.NODE_ENV === "production"
     ? "https://birdiez.herokuapp.com/auth/facebook"
