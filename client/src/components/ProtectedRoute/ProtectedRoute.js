@@ -8,7 +8,17 @@ const URL =
     ? "https://birdiez.herokuapp.com/auth/check"
     : "http://localhost:3090/auth/check";
 
-fetch(URL, { credentials: "include" })
+// fetch(URL, { credentials: "include" })
+//   .then(res => {
+//     return res.json();
+//     setTimeout(1000);
+//   })
+//   .then(data => {
+//     data.msg === "OK"
+//       ? store.dispatch({ type: "Login" })
+//       : store.dispatch({ type: "Logout" });
+//   });
+fetch(URL)
   .then(res => {
     return res.json();
     setTimeout(1000);

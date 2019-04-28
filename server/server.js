@@ -15,14 +15,14 @@ const passportSetup = require("./config/passport-setup");
 const cors = require("cors");
 const flash = require("express-flash");
 // app.use(cors());
-app.use("*", function(req, res, next) {
-  //replace localhost:8080 to the ip address:port of your server
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  res.header("Access-Control-Allow-Headers", "Content-Type");
-  res.header("Access-Control-Allow-Credentials", true);
-  next();
-});
+// app.use("*", function(req, res, next) {
+//   //replace localhost:8080 to the ip address:port of your server
+//   res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+//   res.header("Access-Control-Allow-Headers", "X-Requested-With");
+//   res.header("Access-Control-Allow-Headers", "Content-Type");
+//   res.header("Access-Control-Allow-Credentials", true);
+//   next();
+// });
 
 // //enable pre-flight
 // app.options("*", cors());
@@ -32,7 +32,7 @@ app.use("*", function(req, res, next) {
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
-//app.use(cookieParser());
+// app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
