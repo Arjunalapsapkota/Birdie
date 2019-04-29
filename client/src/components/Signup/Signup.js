@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from "react";
 import "./signup.css";
-import birdie from "../../images/bird.png";
+//import birdie from "../../images/bird.png";
 import birdiee from "../../images/Birdiee.png";
 import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 const GOOGLE_LOGIN =
   process.env.NODE_ENV === "production"
     ? "https://birdiez.herokuapp.com/auth/google"
@@ -40,7 +41,10 @@ class Signup extends Component {
       body: JSON.stringify(this.state)
     });
     let data = await res.json();
-    if (data.msg === "OK") this.setState({ login: true });
+    if (data.msg === "OK") {
+      this.props.Login();
+      this.setState({ login: true });
+    }
   };
   handleRedirect = () => {
     if (this.state.login) return <Redirect to="/dash" />;
@@ -129,4 +133,24 @@ class Signup extends Component {
   }
 }
 
-export default Signup;
+const mapStateToProps = state => {
+  return {
+    store: state
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    Login: () => {
+      dispatch({
+        type: "Login"
+      });
+    },
+    Logout: () => {
+      dispatch({ type: "Logout" });
+    }
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Signup);
