@@ -8,20 +8,11 @@ const URL =
     ? "https://birdiez.herokuapp.com/auth/check"
     : "http://localhost:3090/auth/check";
 
-// fetch(URL, { credentials: "include" })
-//   .then(res => {
-//     return res.json();
-//     setTimeout(1000);
-//   })
-//   .then(data => {
-//     data.msg === "OK"
-//       ? store.dispatch({ type: "Login" })
-//       : store.dispatch({ type: "Logout" });
-//   });
+// fetch(URL, { credentials: "include" }) 00
+//! Important , CORS issuses if used "*" for access-control-allow-origin
 fetch(URL)
   .then(res => {
     return res.json();
-    setTimeout(1000);
   })
   .then(data => {
     data.msg === "OK"
@@ -32,7 +23,7 @@ fetch(URL)
 class ProtectedRoute extends Component {
   state = {};
   render() {
-    return this.props.store.status ? <Dash /> : <Home />;
+    return this.props.store.status ? <Dash /> : <Redirect to="/" />;
   }
 }
 
