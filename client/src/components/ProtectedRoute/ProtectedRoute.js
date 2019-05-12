@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import store from "../../store.js";
+import { Redirect } from "react-router-dom";
 import Home from "../Home";
 import Dash from "../Dash";
 const URL =
