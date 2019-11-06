@@ -30,13 +30,13 @@ const localLogin = new LocalStrategy(localOptions, function(
   User.findOne({ username }, (err, user) => {
     if (err) return done(err, false, { message: "DB_error" });
     if (!user) {
-      return done(null, false, { message: "No_User" });
+      return done(null, false, { message: "Username not found" });
     } else
       user.comparePassword(password, (err, isMatch) => {
         if (err) return done(err, false, { message: "Internal_error" });
         if (!isMatch) {
           console.log("# NO MATCH: Please provide Valid Credentials");
-          return done(null, false, { message: "Password_Error" });
+          return done(null, false, { message: "Password didnot match" });
         } else {
           console.log(
             "# User found in the database,\n Forwading the details .."

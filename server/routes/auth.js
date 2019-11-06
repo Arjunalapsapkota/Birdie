@@ -90,6 +90,7 @@ router.post("/login", function(req, res, next) {
     }
     if (!user) {
       return res.json({ message: info.message });
+      //res.status(200).send(info.message);
     }
     // See passport js Document
     //note that authenticate() is called from within the route handler,
