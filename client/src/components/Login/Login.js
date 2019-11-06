@@ -1,16 +1,26 @@
+// lets import all the dependencies
+
 import React, { Component, Fragment } from "react";
 import "./login.css";
+
 //import birdie from "../../images/bird.png";
+
+// import images
 import birdiee from "../../images/Birdiee.png";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-const axios = require("axios");
 
+// let the app detect whether we are running our app in heroku or localhost
+// and set the URL accordingly
+// idea is to be able to run our program independent of the system
+//
 const FORM_SUBMIT =
   process.env.NODE_ENV === "production"
     ? "https://birdiez.herokuapp.com/auth/login"
     : "http://localhost:3090/auth/login";
+
 class Login extends Component {
+  // component level store
   state = {
     field: {
       username: "",
@@ -20,6 +30,9 @@ class Login extends Component {
     Username: "initial",
     Password: "initial"
   };
+
+  // detect changes in the input field, updates them in component store
+
   handleInputChange = event => {
     const { name, value } = event.target;
     if (name === "username") this.setState({ Username: "initial" });
@@ -53,11 +66,12 @@ class Login extends Component {
       this.setState({ login: true });
     }
   };
-
+  // redirecting function
   handleRedirect = () => {
     if (this.state.login) return <Redirect to="/dash" />;
   };
 
+  // this makes the error message visible on login form
   setclass(data) {
     if (data === "No_User") this.setState({ Username: "Username" });
     else if (data === "Password_Error") {
@@ -124,7 +138,7 @@ class Login extends Component {
     );
   }
 }
-
+// connecting the login component to redux store
 const mapStateToProps = state => {
   return {
     store: state
@@ -142,6 +156,7 @@ const mapDispatchToProps = dispatch => {
     }
   };
 };
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps
