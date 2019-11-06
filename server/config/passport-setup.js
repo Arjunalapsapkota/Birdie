@@ -19,7 +19,7 @@ passport.deserializeUser((id, done) => {
 });
 
 //Create local strategy
-const localOptions = { usernameField: "username" };
+const localOptions = { usernameField: "email" };
 const localLogin = new LocalStrategy(localOptions, function(
   username,
   password,
@@ -30,7 +30,7 @@ const localLogin = new LocalStrategy(localOptions, function(
   User.findOne({ username }, (err, user) => {
     if (err) return done(err, false, { message: "DB_error" });
     if (!user) {
-      return done(null, false, { message: "Username not found" });
+      return done(null, false, { message: "Email not found" });
     } else
       user.comparePassword(password, (err, isMatch) => {
         if (err) return done(err, false, { message: "Internal_error" });

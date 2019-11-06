@@ -13,19 +13,19 @@ const signup = (req, res, done) => {
 
   console.log("# \n # received-data from the Form: \n", req.body);
 
-  if (!username || !password) {
+  if (!email || !password) {
     return res
       .status(422)
       .send({ error: "You must provide email and password" });
   }
 
-  User.findOne({ username: username }, function(err, existingUser) {
+  User.findOne({ username: email }, function(err, existingUser) {
     if (err) return done(null, false);
 
     //If yes, return error
     if (existingUser) {
       console.log("This is existing user, go to login or resest password");
-      return res.status(422).send({ error: "# \n # Username already exists!" });
+      return res.status(422).send({ error: "# \n # Email already exists!" });
     }
 
     const user = new User({

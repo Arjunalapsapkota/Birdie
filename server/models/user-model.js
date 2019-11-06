@@ -11,7 +11,11 @@ const userSchema = new mongoose.Schema({
   facebook: String,
   password: String,
   resetPasswordToken: String,
-  resetPasswordExpires: Date
+  resetPasswordExpires: Date,
+  accountType: String,
+  accountName: String,
+  VerifiedPhone: Boolean,
+  VerifiedEmail: Boolean
 });
 userSchema.pre("save", function(next) {
   var user = this;
