@@ -24,3 +24,23 @@ a:hover {
   cursor: pointer;
   cursor: hand;
 }
+a {
+  display: block;
+  width: 100%;
+  margin: 0;
+}
+#signButton {
+  padding: 0.5em;
+  font-size: 1.4em;
+}
+#continuelabel {
+  text-align: center;
+}
+.field-icon {
+  float: right;
+  margin-left: -25px;
+  margin-top: -25px;
+  position: relative;
+  z-index: 2;
+  margin-right: 5px;
+}
