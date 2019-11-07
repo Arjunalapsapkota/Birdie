@@ -45,7 +45,7 @@ class Login extends Component {
       })
       .then(data => {
         console.log("hi from the component did mount", data);
-        data.msg === "OK" ? <Redirect to="/dash" /> : null;
+        data.msg === "OK" ? this.setState({ login: true }) : null;
       });
   }
   // detect changes in the input field, updates them in component store
