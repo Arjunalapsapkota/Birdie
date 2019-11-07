@@ -7,13 +7,19 @@ import "./login.css";
 
 // import images
 import birdiee from "../../images/Birdiee.png";
-import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import store from "../../store.js";
+import { Redirect } from "react-router-dom";
 
 // let the app detect whether we are running our app in heroku or localhost
 // and set the URL accordingly
 // idea is to be able to run our program independent of the system
-//
+
+const URL =
+  process.env.NODE_ENV === "production"
+    ? "https://birdiez.herokuapp.com/auth/check"
+    : "http://localhost:3090/auth/check";
+
 const FORM_SUBMIT =
   process.env.NODE_ENV === "production"
     ? "https://birdiez.herokuapp.com/auth/login"
@@ -32,7 +38,16 @@ class Login extends Component {
     login: false,
     msg: ""
   };
-
+  componentDidMount() {
+    fetch(URL)
+      .then(res => {
+        return res.json();
+      })
+      .then(data => {
+        console.log("hi from the component did mount", data);
+        data.msg === "OK" ? <Redirect to="/dash" /> : null;
+      });
+  }
   // detect changes in the input field, updates them in component store
 
   handleInputChange = event => {
