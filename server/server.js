@@ -14,18 +14,18 @@ const expressSession = require("express-session");
 const passportSetup = require("./config/passport-setup");
 const cors = require("cors");
 const flash = require("express-flash");
-// app.use(cors());
-// app.use("*", function(req, res, next) {
-//   //replace localhost:8080 to the ip address:port of your server
-//   res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-//   res.header("Access-Control-Allow-Headers", "X-Requested-With");
-//   res.header("Access-Control-Allow-Headers", "Content-Type");
-//   res.header("Access-Control-Allow-Credentials", true);
-//   next();
-// });
+app.use(cors());
+app.use("*", function(req, res, next) {
+  //replace localhost:8080 to the ip address:port of your server
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  res.header("Access-Control-Allow-Credentials", true);
+  next();
+});
 
 // //enable pre-flight
-// app.options("*", cors());
+app.options("*", cors());
 
 // Define middleware here
 

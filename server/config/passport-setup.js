@@ -27,7 +27,7 @@ const localLogin = new LocalStrategy(localOptions, function(
 ) {
   console.log("# Searching the Database ..");
   console.log(username);
-  User.findOne({ username }, (err, user) => {
+  User.findOne({ email: username }, (err, user) => {
     if (err) return done(err, false, { message: "DB_error" });
     if (!user) {
       return done(null, false, { message: "Email not found" });

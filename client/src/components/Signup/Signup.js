@@ -63,6 +63,8 @@ class Signup extends Component {
         body: JSON.stringify(this.state)
       });
       let data = await res.json();
+      console.log(data);
+      if (data.error) this.setState({ msg: data.error });
       if (data.msg === "OK") {
         this.props.Login();
         this.setState({ login: true });

@@ -19,39 +19,41 @@ const signup = (req, res, done) => {
       .send({ error: "You must provide email and password" });
   }
 
-  User.findOne({ username: email }, function(err, existingUser) {
+  User.findOne({ email }, function(err, existingUser) {
     if (err) return done(null, false);
-
+    console.log("##   Existing user details:", existingUser);
     //If yes, return error
     if (existingUser) {
       console.log("This is existing user, go to login or resest password");
-      return res.status(422).send({ error: "# \n # Email already exists!" });
+      return res
+        .status(422)
+        .send({ error: "Email already exists! Try logging in !!" });
+    } else {
+      const user = new User({
+        username,
+        password,
+        email,
+        phone
+        // add the rest of the info from the form and save it to its proper place in the schema
+      });
+
+      console.log("# \n # Saving Data to the Database ..... ");
+
+      user.save(function(err) {
+        // if (err) return next(err);
+        // //If no, respond to request indicating user was created
+        // res.json({ token: tokenForUser(user) });
+        if (err)
+          return res.json(400, {
+            error: 1,
+            msg: "some error"
+          });
+        else {
+          console.log("Newly created User", user);
+          return done(null, user);
+        }
+      });
     }
-
-    const user = new User({
-      username,
-      password,
-      email,
-      phone
-      // add the rest of the info from the form and save it to its proper place in the schema
-    });
-
-    console.log("# \n # Saving Data to the Database ..... ");
-
-    user.save(function(err) {
-      // if (err) return next(err);
-      // //If no, respond to request indicating user was created
-      // res.json({ token: tokenForUser(user) });
-      if (err)
-        return res.json(400, {
-          error: 1,
-          msg: "some error"
-        });
-      else {
-        console.log("Newly created User", user);
-        return done(null, user);
-      }
-    });
   });
 };
 //#########################      important !!
@@ -125,6 +127,7 @@ router.post("/signup", signup, function(req, res, next) {
       return next(err);
     }
     if (!user) {
+      console.log(user);
       return res.json({ message: info.message });
     }
     req.login(user, function(err) {
@@ -192,8 +195,17 @@ router.get(
     //res.send(req.user);
   }
 );
+
 //#################################################################################
+
 router.get("/check", (req, res) => {
+  // This is to check if the session is maintained
+  //i.e. whenever a user refreshes the page or wish to come back later
+  // we need to check if he is still logged in
+  // as long as token remail valid
+  // see passportjs documentation for req.isAuthenticated method
+
+  console.log("second verification of user session", req.user);
   req.isAuthenticated()
     ? (console.log("User authenticated"),
       res.json(200, {

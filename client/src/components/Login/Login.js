@@ -26,7 +26,7 @@ class Login extends Component {
   // component level store
   state = {
     field: {
-      username: "",
+      email: "",
       password: ""
     },
     login: false,
@@ -57,7 +57,7 @@ class Login extends Component {
     //console.log(JSON.stringify(this.state));
 
     let status = true;
-    if (!regex.test(this.state.field.username)) {
+    if (!regex.test(this.state.field.email)) {
       status = false;
       this.setState({ msg: "Email not valid. example: abc@example.com" });
     }
@@ -119,10 +119,10 @@ class Login extends Component {
                             autocomplete="false"
                             className="form-control valid"
                             id="Email"
-                            title="username"
-                            name="username"
+                            title="email"
+                            name="email"
                             required
-                            value={this.state.username}
+                            value={this.state.email}
                             onChange={this.handleInputChange}
                             placeholder="username"
                           />
