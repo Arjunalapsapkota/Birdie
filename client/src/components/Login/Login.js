@@ -44,8 +44,8 @@ class Login extends Component {
         return res.json();
       })
       .then(data => {
-        console.log("hi from the component did mount", data);
-        data.msg === "OK" ? this.setState({ login: true }) : null;
+        data.statusCode ? this.setState({ login: true }) : null;
+        //data.msg === "OK" ? this.setState({ login: true }) : null;
       });
   }
   // detect changes in the input field, updates them in component store

@@ -99,10 +99,14 @@ router.post("/login", function(req, res, next) {
     //rather than being used as route middleware
     //This gives the callback access to the req and res objects through closure
     //now it becomes necessary to establsih a session by calling req.login() and send a response
+
+    // req.login() actually saves the cookie in request body.
+    // which is actually accessible from :  req.session.passport.user
     req.login(user, function(err) {
       if (err) {
         return next(err);
       }
+      console.log("session data 2st:", req.session);
       return res.json(200, {
         msg: "OK"
       });
@@ -204,8 +208,8 @@ router.get("/check", (req, res) => {
   // we need to check if he is still logged in
   // as long as token remail valid
   // see passportjs documentation for req.isAuthenticated method
-
-  console.log("second verification of user session", req.user);
+  console.log("cookies received from the browser side:", req.cookies);
+  console.log("req is authenticated:", req.session.passport);
   req.isAuthenticated()
     ? (console.log("User authenticated"),
       res.json(200, {
