@@ -208,8 +208,8 @@ router.get("/check", (req, res) => {
   // we need to check if he is still logged in
   // as long as token remail valid
   // see passportjs documentation for req.isAuthenticated method
-  console.log("cookies received from the browser side:", req);
-  console.log("req is authenticated:", req.session.passport);
+  // console.log("cookies received from the browser side:", req);
+  // console.log("req is authenticated:", req.session.passport);
   req.isAuthenticated()
     ? (console.log("User authenticated"),
       res.json(200, {

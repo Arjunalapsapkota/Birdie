@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import "./Dash.css";
 import bird from "../../images/bird600x400.png";
 import birdie from "../../images/Birdiee.png";
-import Pane from "../components/pane.js";
+import Navbar from "../Navbar/Navbar.js";
 const LOGOUT =
   process.env.NODE_ENV === "production"
     ? "https://birdiez.herokuapp.com/auth/logout"
@@ -12,8 +12,8 @@ class Dash extends Component {
   render() {
     return (
       <Fragment>
-        <Pane />
-        <div className="poly-svg">
+        <Navbar />
+        <div className="container">
           <img src={birdie} className="logo" alt="" />
           <img src={bird} className="image" alt="" />
           <p> User Profile</p>

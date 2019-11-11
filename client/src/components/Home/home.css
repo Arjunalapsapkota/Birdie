@@ -1,9 +1,12 @@
-.image {
-  width: 5em;
-  height: auto;
-  display: absolute;
+html,
+body {
+  margin: 0;
+  padding: 0;
 }
-.logo {
-  width: 10em;
-  height: auto;
-}
+/* body {
+  background-image: url("../../images/bird.png");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+} */

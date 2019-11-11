@@ -1,0 +1,51 @@
+.bg-dark {
+  background-color: #38689a !important;
+}
+.btn-primary {
+  background-color: #38689a;
+}
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  color: rgb(228, 222, 222);
+}
+.navbar a {
+  text-decoration: none;
+  color: inherit;
+}
+.navbar .logo {
+  font-size: 1.8em;
+  letter-spacing: 10px;
+}
+.navbar .links {
+  display: flex;
+}
+.navbar .links li {
+  list-style: none;
+  letter-spacing: 3px;
+  margin-left: 1.1em;
+  cursor: pointer;
+}
+
+.navbar .links ul {
+  display: flex;
+}
+.navbar .burger {
+  cursor: pointer;
+  display: none;
+}
+.navbar .burger div {
+  width: 30px;
+  height: 3px;
+  margin: 4px;
+  background-color: rgb(228, 222, 222);
+}
+
+@media (max-width: 768px) {
+  .navbar .burger {
+    display: block;
+  }
+  .navbar .links {
+    display: none;
+  }
+}

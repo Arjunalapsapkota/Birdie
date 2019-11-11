@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import Navbar from "../Navbar/Navbar.js";
 import "./signup.css";
 //import birdie from "../../images/bird.png";
 import birdiee from "../../images/Birdiee.png";
@@ -81,6 +82,7 @@ class Signup extends Component {
   render() {
     return (
       <Fragment>
+        <Navbar />
         <div className="loginContainer row shadow">
           <div className="col-md-4 p-0">
             <div className="loginImg"></div>
