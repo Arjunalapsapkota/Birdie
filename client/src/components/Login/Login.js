@@ -2,7 +2,7 @@
 
 import React, { Component, Fragment } from "react";
 import "./login.css";
-
+import Navbar from "../Navbar/Navbar.js";
 //import birdie from "../../images/bird.png";
 
 // import images
@@ -107,7 +107,8 @@ class Login extends Component {
 
   render() {
     return (
-      <Fragment>
+      <div className="Login">
+        <Navbar />
         <div className="loginContainer row shadow">
           <div className="col-md-4 p-0">
             <div className="loginImg"></div>
@@ -192,7 +193,7 @@ class Login extends Component {
           </div>
         </div>
         {this.state.login ? this.handleRedirect() : null}
-      </Fragment>
+      </div>
     );
   }
 }
