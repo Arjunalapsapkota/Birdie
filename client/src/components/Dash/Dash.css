@@ -7,3 +7,35 @@
   width: 10em;
   height: auto;
 }
+.board-container {
+  margin-top: 2em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.recent {
+  flex: 1;
+  width: 100%;
+}
+.board {
+  flex: 2;
+  margin: 0 1em;
+  background-color: rgb(252, 248, 248);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+.myprofile {
+  flex: 1;
+  display: flex;
+  justify-content: space-evenly;
+}
+.image-brand {
+  margin: 0.5em;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.logout {
+  margin-top: 10em !important;
+  width: 10em;
+}

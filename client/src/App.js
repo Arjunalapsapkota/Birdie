@@ -24,6 +24,7 @@ class App extends Component {
             component={this.props.store.status ? Dash : Home}
           /> */}
           <ProtectedRoute exact path="/dash" component={Dash} />
+          <ProtectedRoute exact path="/changeprofile" data="changeprofile" />
           <Route exact path="/forgot" component={Forgot} />
           <Route exact path="/recovery/reset" component={ResetForm} />
           <Route path="/credentials" component={credentials} />
