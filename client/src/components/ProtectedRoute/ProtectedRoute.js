@@ -11,6 +11,7 @@ const URL =
 
 // fetch(URL, { credentials: "include" }) 00
 //! Important , CORS issuses if used "*" for access-control-allow-origin
+// this fetch url can be inside the componentDid mount
 fetch(URL)
   .then(res => {
     return res.json();
@@ -18,7 +19,7 @@ fetch(URL)
   .then(data => {
     data.msg === "OK"
       ? store.dispatch({ type: "Login" })
-      : store.dispatch({ type: "Logout" });
+      : store.dispatch({ type: "Logout" }); // change this to Logout when you are done testing
   });
 
 class ProtectedRoute extends Component {
