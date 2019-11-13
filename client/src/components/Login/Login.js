@@ -38,7 +38,7 @@ class Login extends Component {
     login: false,
     msg: ""
   };
-  componentDidMount() {
+  componentWillMount() {
     fetch(URL)
       .then(res => {
         return res.json();
