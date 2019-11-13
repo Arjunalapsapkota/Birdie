@@ -7,6 +7,7 @@ import Dash from "./components/Dash";
 import Forgot from "./components/Forgot/Forgot.js";
 import ResetForm from "./components/Reset/Reset.js";
 import credentials from "./components/cred/Cred.js";
+import Photo from "./components/Photo/Photo.js";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.js";
 // // import { RedirectUser } from "./components/Login/RedirectUser";
 
@@ -23,8 +24,8 @@ class App extends Component {
             path="/dash"
             component={this.props.store.status ? Dash : Home}
           /> */}
-          <ProtectedRoute exact path="/dash" component={Dash} />
-          <ProtectedRoute exact path="/changeprofile" data="changeprofile" />
+          <ProtectedRoute exact path="/dash" data="Dash" component={Dash} />
+          <ProtectedRoute exact path="/changeprofile" component={Photo} />
           <Route exact path="/forgot" component={Forgot} />
           <Route exact path="/recovery/reset" component={ResetForm} />
           <Route path="/credentials" component={credentials} />
