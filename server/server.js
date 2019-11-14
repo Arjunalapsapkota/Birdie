@@ -1,6 +1,7 @@
 require("dotenv").config();
 const mongodb = require("mongoose");
 const authroutes = require("./routes/auth.js");
+const profile = require("./routes/profile.js");
 const recovery = require("./routes/recovery.js");
 const express = require("express");
 const path = require("path");
@@ -14,6 +15,7 @@ const expressSession = require("express-session");
 const passportSetup = require("./config/passport-setup");
 const cors = require("cors");
 const flash = require("express-flash");
+
 app.use(cors());
 app.use("*", function(req, res, next) {
   //replace localhost:8080 to the ip address:port of your server
@@ -50,6 +52,7 @@ app.use(passport.session());
 // Define auth routes here
 app.use("/auth", authroutes);
 app.use("/recovery", recovery);
+app.use("/profile", profile);
 // Serve up static assets (usually on heroku)
 
 try {

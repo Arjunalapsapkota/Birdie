@@ -1,0 +1,16 @@
+canvas {
+  width: 15em;
+  height: 10em;
+  border: 1px black solid;
+}
+
+.pictureSetting {
+  margin-top: 2em;
+  display: flex;
+}
+.hidden {
+  display: none;
+}
+.photoBox {
+  display: flex;
+}
