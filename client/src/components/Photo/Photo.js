@@ -47,21 +47,11 @@ class Photo extends Component {
   handleClick = async e => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("Name", "arjunsapkota");
     formData.append(
       "image",
       this.state.selectedFile,
       this.state.selectedFile.name
     );
-    // console.log(formData);
-    // for (let value of formData.values()) {
-    //   console.log("form data :", value);
-    // }
-
-    // let response = await fetch(URL, {
-    //   method: "POST",
-    //   data: formData
-    // });
     axios.post(URL, formData).then(res => {
       console.log(res);
     });

@@ -8,6 +8,10 @@ import Forgot from "./components/Forgot/Forgot.js";
 import ResetForm from "./components/Reset/Reset.js";
 import credentials from "./components/cred/Cred.js";
 import Photo from "./components/Photo/Photo.js";
+// import FormWrapper from "./components/Global/FormWrapper/FormWrapper.js";
+// import Row from "./components/Global/Row/Row.js";
+// import Col from "./components/Global/Col/Col.js";
+// import TitleDiv from "./components/Global/TitleDiv/TitleDiv.js";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.js";
 // // import { RedirectUser } from "./components/Login/RedirectUser";
 
@@ -27,6 +31,7 @@ class App extends Component {
           <ProtectedRoute exact path="/dash" data="Dash" component={Dash} />
           <ProtectedRoute exact path="/changeprofile" component={Photo} />
           <Route exact path="/forgot" component={Forgot} />
+          {/* <Route exact path="/test" component={Hey} /> */}
           <Route exact path="/recovery/reset" component={ResetForm} />
           <Route path="/credentials" component={credentials} />
           <Route exact path="*" component={Home} />

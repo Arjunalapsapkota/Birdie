@@ -23,5 +23,12 @@ a:hover {
 }
 .display {
   display: show;
+  margin: 1em 6em;
   color: red;
+}
+.bottomlink {
+  margin: 2em 0;
+}
+.bottomlink a {
+  display: inline;
 }
