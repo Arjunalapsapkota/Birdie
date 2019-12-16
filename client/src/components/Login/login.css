@@ -7,6 +7,7 @@
   border-radius: 15px;
   padding: 2em;
 }
+
 .account {
   margin: 4em 0 4em 0;
   color: grey;
@@ -49,6 +50,16 @@ body {
   position: relative;
   margin-top: 100px;
   padding: 1em;
+}
+.mainContainer {
+  width: 700px;
+  background-color: white;
+  margin: auto;
+  position: relative;
+  padding: 1em;
+}
+.junu {
+  margin-top: 100px;
 }
 label.control-label {
   margin-bottom: 5px;

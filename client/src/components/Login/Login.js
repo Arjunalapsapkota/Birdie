@@ -1,12 +1,8 @@
-// lets import all the dependencies
-
 import React, { Component, Fragment } from "react";
 import "./login.css";
 import Navbar from "../Navbar/Navbar.js";
 //import birdie from "../../images/bird.png";
 
-// import images
-import birdiee from "../../images/Birdiee.png";
 import { connect } from "react-redux";
 import store from "../../store.js";
 import { Redirect } from "react-router-dom";
