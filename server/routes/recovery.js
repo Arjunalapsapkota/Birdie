@@ -8,6 +8,8 @@ const OAuth2 = google.auth.OAuth2;
 const crypto = require("crypto");
 const async = require("async");
 const nodemailer = require("nodemailer");
+
+const sendthemail = require("./sendthemail");
 //list of strategies
 const ID = process.env.CLIENT_ID;
 const SECRET = process.env.CLIENT_SECRET;
@@ -94,6 +96,8 @@ router.post("/credentials", (req, res) => {
 });
 
 //#############################################################################################
+
+//JJJJJJ
 router.post("/forgot", function(req, res, next) {
   console.log("Received Email:", req.body.email);
   //Runs an array of functions in series,
@@ -131,69 +135,7 @@ router.post("/forgot", function(req, res, next) {
       },
       function(token, user) {
         console.log("preparing mail..", user);
-
-        const sendthemail = async () => {
-          console.log("mail being prepared for :", user.email);
-          const oauth2Client = new OAuth2(ID, SECRET);
-          console.log("refresh token :", REFRESH_TOKEN);
-          oauth2Client.setCredentials({
-            refresh_token: REFRESH_TOKEN
-          });
-
-          const tokens = await oauth2Client.getAccessToken();
-          console.log("token from Oauth :  ", tokens.token);
-          const accessToken = tokens.token;
-          let mailOpts, smtpTrans;
-          smtpTrans = nodemailer.createTransport({
-            service: "gmail",
-            auth: {
-              type: "OAuth2",
-              user: "arjunalapsapkota@gmail.com",
-              clientId: ID,
-              clientSecret: SECRET,
-              refreshToken: REFRESH_TOKEN,
-              accessToken: accessToken,
-              expires: 1484314697598
-            },
-            TLS: {
-              rejectUnauthorized: false
-            }
-          });
-          //
-          // verify connection configuration
-          smtpTrans.verify(function(error, success) {
-            if (error) {
-              console.log(error);
-            } else {
-              console.log("Server is ready to send the message..");
-            }
-          });
-          mailOpts = {
-            from: "Support" + " &lt;" + "Birdie" + "&gt;",
-            to: user.email,
-            subject: "Password Reset",
-            text:
-              "You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n" +
-              "Please click on the following link, or paste this into your browser to complete the process:\n\n" +
-              "http://" +
-              req.headers.host +
-              "/recovery/reset/" +
-              token +
-              "\n\n" +
-              "If you did not request this, please ignore this email and your password will remain unchanged.\n"
-          };
-          smtpTrans.sendMail(mailOpts, function(error, response) {
-            if (error) {
-              return res.send("contact-failure");
-            } else {
-              console.log("message sent");
-              return res.json(200, {
-                msg: "OK"
-              });
-            }
-          });
-        };
-        sendthemail();
+        sendthemail(token, user, req.headers.host);
       }
     ],
     (err, result) => {

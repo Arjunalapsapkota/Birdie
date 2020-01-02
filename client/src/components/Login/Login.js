@@ -47,11 +47,13 @@ class Login extends Component {
   // detect changes in the input field, updates them in component store
 
   handleInputChange = event => {
-    const { name, value } = event.target;
+    let { name, value } = event.target;
+    if (name === "email") value = value.toLowerCase();
+    console.log("value :", value);
     console.log(this.state.field);
     //setting object inside the state object
     this.setState(oldField => {
-      console.log(oldField);
+      console.log("OLD FIELD: ", oldField);
       return {
         field: {
           ...oldField.field,
@@ -212,7 +214,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

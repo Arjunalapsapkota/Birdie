@@ -15,7 +15,8 @@ const userSchema = new mongoose.Schema({
   accountType: String,
   accountName: String,
   VerifiedPhone: Boolean,
-  VerifiedEmail: Boolean
+  VerifiedEmail: Boolean,
+  picture: String
 });
 userSchema.pre("save", function(next) {
   var user = this;
