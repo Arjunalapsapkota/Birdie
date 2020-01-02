@@ -49,32 +49,23 @@ class Login extends Component {
   handleInputChange = event => {
     let { name, value } = event.target;
     if (name === "email") value = value.toLowerCase();
-    console.log("value :", value);
-    console.log(this.state.field);
-    //setting object inside the state object
-    this.setState(oldField => {
-      console.log("OLD FIELD: ", oldField);
-      return {
-        field: {
-          ...oldField.field,
-          [name]: value
-        },
-        msg: ""
-      };
+    this.setState({
+      [name]: value,
+      msg: ""
     });
   };
 
   handlesubmit = async event => {
     event.preventDefault();
-    console.log(this.state.field);
+
     //console.log(JSON.stringify(this.state));
 
     let status = true;
-    if (!regex.test(this.state.field.email)) {
+    if (!regex.test(this.state.email)) {
       status = false;
       this.setState({ msg: "Email not valid. example: abc@example.com" });
     }
-    if (!this.state.field.password) {
+    if (!this.state.password) {
       status = false;
       this.setState({ msg: "Password field cannot be empty" });
     }
@@ -86,7 +77,10 @@ class Login extends Component {
           "Content-Type": "application/json"
           // "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: JSON.stringify(this.state.field)
+        body: JSON.stringify({
+          email: this.state.email,
+          password: this.state.password
+        })
       });
       let data = await res.json();
       this.setState({ msg: data.message });

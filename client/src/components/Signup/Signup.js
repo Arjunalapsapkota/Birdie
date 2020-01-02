@@ -28,7 +28,7 @@ class Signup extends Component {
   handleInputChange = event => {
     let { name, value } = event.target;
     console.log(this.state);
-    if (name == "email") value = value.toLowerCase();
+    if (name === "email") value = value.toLowerCase();
     this.setState({
       [name]: value,
       msg: ""
