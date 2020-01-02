@@ -57,7 +57,7 @@ app.use("/profile", profile);
 
 try {
   mongodb.connect(process.env.MONGO_DB_URL, () => {
-    console.log("connected mongoDB");
+    console.log("Successfully connected to mongo database ");
   });
 } catch (error) {
   console.log(error);

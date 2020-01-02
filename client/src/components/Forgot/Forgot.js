@@ -17,7 +17,8 @@ class Forgot extends Component {
   };
   handleChange = event => {
     event.preventDefault();
-    const { name, value } = event.target;
+    let { name, value } = event.target;
+    value = value.toLowerCase();
     this.setState({
       [name]: value
     });

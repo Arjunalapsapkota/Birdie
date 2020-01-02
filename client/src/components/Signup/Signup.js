@@ -26,8 +26,9 @@ class Signup extends Component {
     msg: ""
   };
   handleInputChange = event => {
-    const { name, value } = event.target;
+    let { name, value } = event.target;
     console.log(this.state);
+    if (name === "email") value = value.toLowerCase();
     this.setState({
       [name]: value,
       msg: ""
@@ -221,7 +222,4 @@ const mapDispatchToProps = dispatch => {
     }
   };
 };
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Signup);
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);

@@ -6,7 +6,6 @@ const path = require("path");
 const storage = multer.diskStorage({
   destination: "./public/uploads/",
   filename: function(req, file, cb) {
-    console.log("file : ", file);
     cb(
       null,
       file.fieldname + "-" + Date.now() + path.extname(file.originalname)
@@ -16,7 +15,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage }).single("image");
 
 router.post("/picture", (req, res) => {
-  console.log(req.body);
+  console.log("received picture:", req.body);
   upload(req, res, err => {
     if (err) {
       res.send("Error occures");
