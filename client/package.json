@@ -5,7 +5,7 @@
   "private": true,
   "proxy": "http://localhost:3090/",
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "cropperjs": "^1.5.6",
     "cryptiles": "4.1.2",
     "react": "^16.0.0",
